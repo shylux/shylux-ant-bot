@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Map extends Ants {
@@ -6,6 +8,7 @@ public class Map extends Ants {
 	private Ilk acmap[][];
 	private int stepcount[][];
 	private final int maxstep = 100000;
+	private Set<Ant> myants = new HashSet<Ant>();
 
 	public Map(int loadTime, int turnTime, int rows, int cols, int turns, int viewRadius2, int attackRadius2, int spawnRadius2) {
 		super(loadTime, turnTime, rows, cols, turns, viewRadius2, attackRadius2, spawnRadius2);
@@ -77,4 +80,17 @@ public class Map extends Ants {
 		super.issueOrder(ant, direction);
 	}
 
+	public void update(Ilk ilk, Tile tile) {
+		super.update(ilk, tile);
+		if (ilk == Ilk.MY_ANT) {
+			for (Ant a: myants) {
+				if (tile.equals(a)) return;
+			}
+			myants.add( new RandomAnt(tile, this));
+		}
+	}
+	
+	public Set<Ant> getAnts() {
+		return myants;
+	}
 }

@@ -26,13 +26,9 @@ public class MyBot extends Bot {
     public void doTurn() {
         this.ants = (Map) getAnts();
         ants.update();
-        for (Tile myAnt : ants.getMyAnts()) {
-        	this.findFoodv1(myAnt);
+        for (Ant a: ants.getAnts()) {
+        	a.calcNextStep();
         }
-    }
-    
-    public static int getRandom(int arrlength) {
-    	return (int) Math.round(Math.random()*(arrlength-1));
     }
     
     public void findFoodv1(Tile ant) {
@@ -46,16 +42,6 @@ public class MyBot extends Bot {
     		}
     	}
     	lowestStepNoCollNoWater(ant);
-    }
-    
-    public void randomStepNoCollNoWater(Tile ant) {
-    	ArrayList<Aim> aimlist = new ArrayList<Aim>();
-    	for (Aim direction: Aim.values()) {
-    		Ilk i = ants.getIlk(ant, direction);
-    		if (!i.isMyAntOrWater()) aimlist.add(direction);
-    	}
-    	Aim movedirection = aimlist.get(getRandom(aimlist.size()));
-    	ants.issueOrder(ant, movedirection);
     }
     
     public void lowestStepNoCollNoWater(Tile ant) {

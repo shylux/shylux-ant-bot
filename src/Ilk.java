@@ -29,22 +29,6 @@ public enum Ilk {
         return ordinal() > WATER.ordinal();
     }
     
-    public boolean isFood() {
-    	return this == FOOD;
-    }
-    
-    public boolean isMyAnt() {
-    	return this == MY_ANT;
-    }
-    
-    public boolean isMyAntOrWater() {
-    	return (this == MY_ANT || this == WATER);
-    }
-    
-    public boolean isEnemy() {
-    	return this == ENEMY_ANT;
-    }
-    
     /**
      * Checks if this type of tile is unoccupied, which means it is a land tile or a dead ant tile.
      * 
@@ -53,5 +37,9 @@ public enum Ilk {
      */
     public boolean isUnoccupied() {
         return this == LAND || this == DEAD;
+    }
+    
+    public boolean isPassableNoSuizide() {
+    	return this != WATER && this != MY_ANT;
     }
 }

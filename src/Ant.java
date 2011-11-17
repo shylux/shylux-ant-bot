@@ -1,20 +1,17 @@
 
-abstract class Ant extends Tile implements MyAnt{
-	Map map;
 
-	public Ant(Tile t, Map newmap) {
-		super(t.getRow(), t.getCol());
-		this.map = newmap;
-	}
-	public Ant(int row, int col, Map newmap) {
-		super(row, col);
-		this.map = newmap;
+
+abstract class Ant extends MovTile {	
+	public Ant(Tile t, MyBot newparent) {
+		super(t.getRow(), t.getCol(), newparent);
 	}
 
 	public abstract void calcNextStep();
 	public void issueOrder(Aim direction) {
-		map.issueOrder(this, direction);
-		this.setTile(map.getTile(this, direction));
+		parent.issueOrder(this, direction);
+		move(direction);
+	}
+	public boolean samePosition(Tile t) {
+		return this.getRow() == t.getRow() && this.getCol() == t.getCol();
 	}
 }
-

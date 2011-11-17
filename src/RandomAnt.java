@@ -1,29 +1,36 @@
+
+
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RandomAnt extends Ant {
-
-	public RandomAnt(Tile t, Map map) {
-		super(t, map);
-	}
-
-	public RandomAnt(int row, int col, Map map) {
-		super(row, col, map);
+	public RandomAnt(Tile t, MyBot newparent) {
+		super(t, newparent);
 	}
 
 	@Override
 	public void calcNextStep() {
+    	issueOrder(getRandomAim(this, parent));
+	}
+	
+	public static List<Aim> getAimlist(Tile position, MyBot parent) {
 		ArrayList<Aim> aimlist = new ArrayList<Aim>();
     	for (Aim direction: Aim.values()) {
-    		Ilk i = map.getIlk(this, direction);
-    		if (!i.isMyAntOrWater()) aimlist.add(direction);
+    		Ilk i = parent.getIlk(position, direction);
+    		if (i.isPassableNoSuizide()) aimlist.add(direction);
     	}
-    	Aim movedirection = aimlist.get(getRandom(aimlist.size()));
-    	issueOrder(movedirection);
+    	return aimlist;
 	}
+	
+    public static Aim getRandomAim(Tile position, MyBot parent) {
+    	List<Aim> aimlist = getAimlist(position, parent);
+    	return (aimlist.size() > 0) ? aimlist.get(ShUtil.getRandom(aimlist.size())): null;
+    }
     
-    public static int getRandom(int arrlength) {
-    	if (arrlength == 0) return 0;
-    	return (int) Math.round(Math.random()*(arrlength-1));
+    public static void moveRandom(Ant ant, MyBot parent) {
+    	List<Aim> aimlist = getAimlist(ant, parent);
+    	if (aimlist.size() > 0) ant.issueOrder(aimlist.get(ShUtil.getRandom(aimlist.size())));
     }
 }

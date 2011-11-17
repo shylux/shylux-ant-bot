@@ -2,9 +2,9 @@
  * Represents a tile of the game map.
  */
 public class Tile implements Comparable<Tile> {
-    private int row;
+    protected int row;
     
-    private int col;
+    protected int col;
     
     /**
      * Creates new {@link Tile} object.
@@ -17,13 +17,9 @@ public class Tile implements Comparable<Tile> {
         this.col = col;
     }
     
-    public void setTile(Tile t) {
-    	this.row = t.getRow();
-    	this.col = t.getCol();
-    }
-    
     /**
      * Returns row index.
+     * 
      * @return row index
      */
     public int getRow() {
@@ -32,6 +28,7 @@ public class Tile implements Comparable<Tile> {
     
     /**
      * Returns column index.
+     * 
      * @return column index
      */
     public int getCol() {
@@ -65,6 +62,10 @@ public class Tile implements Comparable<Tile> {
             result = row == tile.row && col == tile.col;
         }
         return result;
+    }
+    
+    public boolean isSamePosition(Tile t) {
+    	return this.row == t.row && this.col == t.col;
     }
     
     /**

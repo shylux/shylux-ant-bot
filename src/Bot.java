@@ -10,12 +10,13 @@ public abstract class Bot extends AbstractSystemInputParser {
     @Override
     public void setup(int loadTime, int turnTime, int rows, int cols, int turns, int viewRadius2,
             int attackRadius2, int spawnRadius2) {
-        setAnts(new Map(loadTime, turnTime, rows, cols, turns, viewRadius2, attackRadius2,
+        setAnts(new Ants(loadTime, turnTime, rows, cols, turns, viewRadius2, attackRadius2,
             spawnRadius2));
     }
     
     /**
      * Returns game state information.
+     * 
      * @return game state information
      */
     public Ants getAnts() {
@@ -24,6 +25,7 @@ public abstract class Bot extends AbstractSystemInputParser {
     
     /**
      * Sets game state information.
+     * 
      * @param ants game state information to be set
      */
     protected void setAnts(Ants ants) {

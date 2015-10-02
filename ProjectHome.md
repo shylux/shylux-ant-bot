@@ -1,0 +1,1 @@
+This is a bot which can participate in AIChallenge (aichallenge.org).
